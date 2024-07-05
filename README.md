@@ -18,3 +18,7 @@ A couple of us have also written some notes / posts on the agentic fediverse:
 
 - [Fedi v2](https://www.thepaperpilot.org/garden/fedi-v2/) by `@thepaperpilot`
 - [How to Federate?](https://zicklag.katharos.group/blog/how-to-federate/) by [@zicklag](https://github.com/zicklag)
+
+## Related Projects:
+
+- https://blog.commune.sh/weird-happenings/
