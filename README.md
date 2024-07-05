@@ -4,6 +4,8 @@ The "Agentic Fediverse" is the idea of a new kind of federation, a "second gener
 established with [ActivityPub]. It's an experiment and something that we at the [Commune](https://github.com/commune-os) group are
 still trying to define more concretely.
 
+> **Note:** This is a temporary place for collecting links about the agentic fediverse, untill this can be hosted directly on [Weird.one](https://weird.one).
+
 [ActivityPub]: https://activitypub.rocks/
 
 ## Tenets
