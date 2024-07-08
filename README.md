@@ -1,25 +1,106 @@
 # Agentic Fediverse
 
-The "Agentic Fediverse" is the idea of a new kind of federation, a "second generation" iteration of the concept of federation currently
-established with [ActivityPub]. It's an experiment and something that we at the [Commune](https://github.com/commune-os) group are
+The "Agentic Fediverse" is the idea of a new kind of [network federation](https://en.wikipedia.org/wiki/Federation_(information_technology)), a complementary iteration on the concept of federation currently established with [ActivityPub]. It's an experiment and something that we at the [Commune](https://github.com/commune-os) group are
 still trying to define more concretely.
 
-> **Note:** This is a temporary place for collecting links about the agentic fediverse, untill this can be hosted directly on [Weird.one](https://weird.one).
+> **Note:** This is a temporary place for collecting links about the agentic fediverse, until this can be hosted directly on [Weird.one](https://weird.one).
 
 [ActivityPub]: https://activitypub.rocks/
 
 ## Tenets
 
-We are still working on defining the core tenets of the agentic fediverse, but here is what we have so far:
+We are still working on defining the core tenets of the agentic fediverse, but here is what we have so far.
 
-1. We're envisioning a fediverse of agents, not a fediverse of servers.
+An agentic fediverse is..
+
+1. **A fediverse of agents**; agent-centric, as opposed to server-centric.
+2. **Accessible by default**; inaccessibility is a bug.
+3. **Systematically consensual**; architected on the basis of informed consent.
+4. **Local-first**; solve local problems for local people.
+
+## Primer
+
+The word *agentic* occurs primarily in the social sciences, pertaining to an individual's agency, often used interchangeably with _autonomy_ or _self-determination_.
+
+> In [social science](https://en.wikipedia.org/wiki/Agency_(sociology)), agency is the capacity of individuals to have the power and resources to fulfill their potential.
+
+To be _agentic_ is to be agency-driven and agent-centric. An agentic system optimizes for agency, for example by measuring _user agency_ as a metric of success.
+
+### The minimal definition of user agency
+
+Gordon Brander, jamming on recurring ideas in the web3 space, proposes a _[minimal definition of user agency](https://newsletter.squishy.computer/p/the-minimal-definition-of-user-agency):_
+
+- Own your ID
+- Own your content
+- Own your contacts
+
+> Why do you need all three?
+> 
+> If you don’t own your content, you’re stuck. Owning your content is necessary for agency! However, it is not sufficient, because…
+> 
+> If you own your content, but don’t own your contacts, then you will lose your entire social graph when you switch services. Network effect will keep you locked in.
+> 
+> If you own your content and contacts, but don’t own your ID, you don’t really own anything. Why? IDs are upstream of access. Specifically, this is about who owns your name, and the cryptographic keys that secure your ID, under the hood. If your name is owned by an authority, you lose it if you leave. If your keys are owned by an authority, they are in control. They can lock you out of your stuff, snoop on your private messages, delete your account, or refuse to let you move it elsewhere. So self-sovereign IDs and keys are crucial for agency.
+>  
+> When you own your ID, content, and contacts, you have agency, because you have credible exit. You can seamlessly change services and bring everything important with you, like switching carriers for your mobile phone.
+
+### Credible exit
+
+[Vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in), e.g. by way of data lock-in, is by definition an anti-agentic feature. European internet users' _right to exit_ is even codified by law in the [GDPR's Right of Access](https://www.dataprotection.ie/en/individuals/know-your-rights/right-access-information).
+
+From Gordon Brander's [Credible exit](https://newsletter.squishy.computer/p/credible-exit):
+
+> #### Dimensions of credible exit
+> 
+> I think there may be multiple dimensions along which to think about credible exit. An app might provide some or all of them.
+> 
+> **I can export my data:** This is pretty bog-standard due to GDPR regulations now. Often what you get is a zip full of JSON files. Pretty lackluster. JSON isn’t something that makes sense outside of an app.
+> 
+> Export also has the downside of being static. If you continue to use the app, your export becomes invalid. This makes export only really useful for hard exit. Still, it’s better than nothing. I might say “export considered harm reduction”.
+> 
+> **I can sync my data**, or at least export and re-import it multiple times. This resolves the “dead export” problem. It also makes export useful for other use-cases, like backup and basic interoperability between tools. One way to accomplish this is with immutable data. If the file never changes, it’s easy to sync. iTunes music library is a good example. CRDTs are a promising primitive for data that is frequently updated.
+> 
+> **My data is in a useful format:** exit happens through a common formats that work in other apps. Plain text, CSV, PNG, PDF, SVG, MP3 are all good examples of useful formats. Camera Roll is a standout example here. You can drag and drop images, in and out of the app freely.
+> 
+> **My data lives in local files.** iTunes is a standout example. You can always take your MP3 files with you. Files are great because you have the bytes! Files also enable credible exit to emerge retroactively! New apps can come along and implement the file formats of other popular apps, uplifting their file format into a de facto protocol.
+> 
+> **Multiple apps can share the same data over a permissionless API.** This is where credible exit transcends itself and becomes broad interoperability.
+> 
+> **The app is open source.** A protocol will never capture the full fidelity of the app experience, but if the protocol and app are both open, you might unlock much deeper credible exit. Mastodon is a great example here.
+
+Continued in [Freedom to exit](https://newsletter.squishy.computer/p/freedom-to-exit):
+
+>> **Freedom to exit:** you can take your data and leave, and no one can tell you no.
+> 
+> The web does not support the freedom to exit. The server owns the data, so the server can tell you no. The same is true of most mobile apps. Some save files to folders, but most trap data in the app. The app can tell you no. This lock-in is used as a competitive moat for aggregators, and a business model for software-as-a-service.
+>
+> So, how do we fix this? As far as I can tell there are just three ways to guarantee freedom to exit: decentralized protocols, local-first data, or legal agreements.
+> 
+> - **Decentralized protocols:** no one can tell you no because the data is distributed across multiple peers controlled by different parties. If one peer tells you no, you just ask another.
+> - **Local-first data:** no one can tell you no because you already have your data.
+> - **Legal agreements:** no one can tell you no because you have a contract or license in place that guarantees access to your data.
+
+### The web is for user agency
+
+https://berjon.com/user-agency/
+
+> Technologists trying to maximise user agency often fall into the trap of measuring agency by looking only at time saved (in the same way that they fail to understand what people want to do when they measure time spent). On the surface, the idea seems straightforward: spend less time on one thing, have more time for other things! That would seem to fit our mandate of improving "What each person is able to do and to be". And all other things being equal that can be true, but the devil is in the details: the enjoyment of doing the thing, the value in knowing how to do it, or the authority over outcomes. Even things that many would consider chores aren't always best automated or delegated away: you may not wish to clean your house but you might want a say in the chemicals introduced into your home, about how your things are organised, or over whether your house can be mapped by a robot and data derived from that map sold to the highest bidder. Not all leisure is liberation.
+> 
+> The more detail we have on a piece of technology that may be part of the Web, the more readily we can assess it in very specific ways that capture aspects of improved user agency. In fact, that's something that the Web community has been doing for a long time. Consider:
+> 
+> - The great level of detail that has gone (and continues to go) into specifying [how to make the Web and Web content accessible](https://www.w3.org/WAI/standards-guidelines/). These guidelines and techniques can, in exceedingly concrete ways, push for a world in which disability does not limit agency.
+> - An equally-impressive trove of actionable principles can be found in the [Internationalization work](https://www.w3.org/blog/international/). This empowers people to use the Web in the languages of their choice. We will never celebrate the work of the [Unicode Consortium](https://home.unicode.org/) enough. Bringing all of the world's languages into a unified system of character encoding is a historical achievement that "[respects and empowers users](https://home.unicode.org/about-unicode/)".
+> - It's hard to act freely if you can't act safely, which makes [work on security](https://www.w3.org/Security/) core to the agency project. [RFC8890](https://www.rfc-editor.org/rfc/rfc8890) ("The Internet is for End Users") captures this well when it states that "User agents act as intermediaries between a service and the end user; rather than downloading an executable program from a service that has arbitrary access into the users' system, the user agent only allows limited access to display content and run code in a sandboxed environment. End users are diverse and the ability of a few user agents to represent individual interests properly is imperfect, but this arrangement is an improvement over the alternative — the need to trust a website completely with all information on your system to browse it." This trust is empowering.
+> - And the same can be said about [privacy](https://www.w3.org/Privacy/), which is key to trust as well. Privacy further matters (as discussed in the [Privacy Principles](https://w3ctag.github.io/privacy-principles/)) in that it includes the right to decide what identity you present to others in which contexts. Additionally, widespread data collection creates information asymmetries and information asymmetries create power asymmetries. The issue here isn't so much that data might be used to support mind-controlling AI snake oil but rather that it powers more mundane (and far more effective) manipulation techniques such as [hypernudging](https://www.tandfonline.com/doi/abs/10.1080/1369118X.2016.1186713).
+> 
+> These shared foundations for Web technologies (which the W3C refers to as "horizontal review" but they have broader applicability in the Web community beyond standards) are all specific, concrete implementations of the Web's goal of developing user agency — they are about capabilities. We don't habitually think of them as ethical or political goals, but they are: they aren't random things that someone did for fun — they serve a purpose. And they work because they implement ethics that get dirty with the tangible details.
 
 ## Resources
 
 A couple of us have also written some notes / posts on the agentic fediverse:
 
-- https://newsletter.squishy.computer/p/redecentralization
 - https://newsletter.squishy.computer/p/credible-exit
+- https://newsletter.squishy.computer/p/redecentralization
 - https://newsletter.squishy.computer/p/the-minimal-definition-of-user-agency
 - https://newsletter.squishy.computer/p/freedom-to-exit
 - https://newsletter.squishy.computer/p/decentralizability
