@@ -162,7 +162,7 @@ Still, nothing prevents the creation of unspecified schemas, so they are allowed
 
 ### Encryption Algorithms
 
-An [`EncryptionAlgorithm`] is a name and a specification describing how data may be encrypted and decrypted. The [`PayloadDigest`] of an [`EncryptionAlgorithm`] is called an <a id="EncryptionAlgorithmId" href="#EncryptionAlgorithmId">`EncryptionAlgorithmId`</a>.
+An [`EncryptionAlgorithm`] is a `name` and a `specification` describing how data may be encrypted and decrypted. The [`PayloadDigest`] of an [`EncryptionAlgorithm`] is called an <a id="EncryptionAlgorithmId" href="#EncryptionAlgorithmId">`EncryptionAlgorithmId`</a>.
 
 The data of an [`EncryptionAlgorithm`] is [Borsh] serialized data matching the following format:
 
@@ -175,8 +175,15 @@ struct EncryptionAlgorithm {
 
 The `name` is a human readable name for documentation purposes.
 
-The `specification` is the ID of an [`EntitySnapshot`] that documents the encryption algorithm. The specification preferably includes all of the information necessary to encrypt and decrypt data with the encryption algorithm.
+The `specification` is the ID of an [`EntitySnapshot`] that documents the encryption algorithm. The specification is usually **human documentation** that preferably includes all of the information necessary to encrypt and decrypt data with the encryption algorithm.
 
+> **Note:** It is an interesting consideration that while the `specification` for an `EncryptionAlgorithm` should always include human documentation describing the algorithm, it might also contain additional machine-readable components, such as a [WASM] module that can be used to actually perform the encryption and decryption.
+> 
+> If a standardized interface for encryption modules was developed, it might be possible to allow clients to automatically download and execute compatible encryption modules automatically.
+>
+> This kind of standard is allowed to develop on top of the Leaf protocol independently and is out of scope for this specification.
+
+[WASM]: https://webassembly.org/
 [`EncryptionAlgorithm`]: #encryption-algorithms
 
 ## Notes
