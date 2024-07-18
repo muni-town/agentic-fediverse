@@ -2,7 +2,7 @@
 
 The Leaf Protocol is a data format on top of the [Willow Protocol][willow]. Willow deals with how data is replicated and stored amongst peers, providing access control as well as key-value-based byte storage. On top of Willow, Leaf provides:
 
-- A schema system and serialization format .
+- A schema system and serialization format.
 - A standard for creating an Entity-Component, ["Web of Data"][wod].
 
 [willow]: https://willowprotocol.org/specs/index.html#specifications
