@@ -73,7 +73,7 @@ Correspondingly the [`PayloadDigest`] of the [`EntitySnapshot`] is called an <a 
 
 Components are stored individually in a [content addressable store][`PayloadDigest`], most-likely the one used by the Willow implementation for storing [`Payload`]s.
 
-The content of a `Component` is [Borsh] serialized data matching the following format:
+The content of a [`Component`] is [Borsh] serialized data matching the following format:
 
 ```rust
 enum Component {
@@ -177,7 +177,7 @@ The `name` is a human readable name for documentation purposes.
 
 The `specification` is the ID of an [`EntitySnapshot`] that documents the encryption algorithm. The specification is usually **human documentation** that preferably includes all of the information necessary to encrypt and decrypt data with the encryption algorithm.
 
-> **Note:** It is an interesting consideration that while the `specification` for an `EncryptionAlgorithm` should always include human documentation describing the algorithm, it might also contain additional machine-readable components, such as a [WASM] module that can be used to actually perform the encryption and decryption.
+> **Note:** It is an interesting consideration that while the `specification` for an [`EncryptionAlgorithm`] should always include human documentation describing the algorithm, it might also contain additional machine-readable components, such as a [WASM] module that can be used to actually perform the encryption and decryption.
 > 
 > If a standardized interface for encryption modules was developed, it might be possible to allow clients to automatically download and execute compatible encryption modules automatically.
 >
