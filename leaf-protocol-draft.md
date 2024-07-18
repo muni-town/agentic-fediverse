@@ -34,6 +34,7 @@ Each [`PathComponent`] for an entity must be [Borsh] serialized data matching th
 
 ```rust
 enum PathComponent {
+    Null,
     Bool(bool),
     Uint(u64),
     Int(i64),
