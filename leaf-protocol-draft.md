@@ -104,7 +104,7 @@ When a component is encrypted, the [Borsh] serialized data matching the `Compone
 
 > **ℹ️ Explanation:** This design allows for individual [`Component`]s on an [`Entity`] to be encrypted, even if other components are not encrypted. This could be useful, for example, on a user profile, where the Email for the user profile might be encrypted so that the user can choose to share it with only specific other users or services.
 >
-> This does not prevent you from using Willows own encryption mechanisms to encrypt the entire [`Entity`] or it's [`Path`]. 
+> This does not prevent you from using Willow's own encryption mechanisms to encrypt the entire [`Entity`] or it's [`Path`]. 
 
 ### Schemas
 
