@@ -80,6 +80,7 @@ enum Component {
     Unencrypted(ComponentData),
     Encrypted {
         algorithm: EncryptionAlgorithmId,
+        key_id: [u8; 32],
         encrypted_data: Vec<u8>,
     }
 }
@@ -98,6 +99,8 @@ In the `ComponentData` struct, the [`SchemaId`] is the ID of the [`Schema`] that
 Components may be either encrypted or unencrypted. The Leaf Protocol allows any number of [`EncryptionAlgorithm`]s to be implemented. It is up to implementations to choose which algorithms to support.
 
 When a component is encrypted, the [Borsh] serialized data matching the `ComponentData` struct will be encrypted using the algorithm and stored in the `encrypted_data` field.
+
+The interpretation of `key_id` may be different between different encryption algorithms. This field may be used to store the public key in asymmetric key algorithms for example. An algorithm may choose to put the entire key into the `key_id` field, or it may choose to store the key in the content addressed store and put its [`PayloadDigest`] in the `key_id` field.
 
 [`Component`]: #components
 [`ComponentId`]: #ComponentId
