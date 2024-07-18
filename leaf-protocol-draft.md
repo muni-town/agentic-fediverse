@@ -177,7 +177,7 @@ The `name` is a human readable name for documentation purposes.
 
 The `specification` is the ID of an [`EntitySnapshot`] that documents the encryption algorithm. The specification is usually **human documentation** that preferably includes all of the information necessary to encrypt and decrypt data with the encryption algorithm.
 
-> **Note:** It is an interesting consideration that while the `specification` for an [`EncryptionAlgorithm`] should always include human documentation describing the algorithm, it might also contain additional machine-readable components, such as a [WASM] module that can be used to actually perform the encryption and decryption.
+> **Note:** It is an interesting consideration that while the `specification` for an [`EncryptionAlgorithm`] should always include human documentation describing the algorithm, it might also contain additional machine-readable [`Component`]s, such as a [WASM] module that can be used to actually perform the encryption and decryption.
 > 
 > If a standardized interface for encryption modules was developed, it might be possible to allow clients to automatically download and execute compatible encryption modules automatically.
 >
@@ -187,3 +187,7 @@ The `specification` is the ID of an [`EntitySnapshot`] that documents the encryp
 [`EncryptionAlgorithm`]: #encryption-algorithms
 
 ## Notes
+
+The Leaf Protocol specifies a data format on top of Willow storage, and not much else. All of the Willow features such as the Meadowcap capability system can work with Leaf seamlessly.
+
+The goal of Leaf is simply to provide a more expressive format for storing rich data that can be incrementally understood by different applications.
