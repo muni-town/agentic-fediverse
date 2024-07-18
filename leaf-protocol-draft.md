@@ -59,9 +59,12 @@ Additionally, the last [`PathComponent`] in the path must always be suffixed wit
 
 The [`Payload`] of an entity must be a sorted list of [`ComponentId`]s.
 
+> **Note:** Since [`ComponentId`]s are each [`PayloadDigest`]s, they must be sorted according to the [total order][ordered] of the [`PayloadDigest`]. The Willow protocol requires that [`PayloadDigest`]s have a total order.
+
 This sorted list of [`ComponentId`]s is called an <a id="EntitySnapshot" href="#EntitySnapshot">`EntitySnapshot`</a>.
 Correspondingly the [`PayloadDigest`] of the [`EntitySnapshot`] is called an <a id="EntitySnapshotId" href="#EntitySnapshotId">`EntitySnapshotId`</a>.
 
+[ordered]: https://en.wikipedia.org/wiki/Total_order
 [`EntitySnapshot`]: #EntitySnapshot
 [`EntitySnapshotId`]: #EntitySnapshotId
 [`Payload`]: https://willowprotocol.org/specs/data-model/index.html#Payload
