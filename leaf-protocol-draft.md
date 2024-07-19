@@ -111,11 +111,11 @@ The interpretation of `key_id` may be different between different encryption alg
 
 > **ℹ️ Explanation:** This design allows for individual [`Component`]s on an [`Entity`] to be encrypted, even if other components are not encrypted. This could be useful, for example, on a user profile, where the Email for the user profile might be encrypted so that the user can choose to share it with only specific other users or services.
 >
-> This does not prevent you from using Willow's own encryption mechanisms to encrypt the entire [`Entity`] or it's [`Path`]. 
+> This does not prevent you from using Willow's own encryption mechanisms to encrypt the entire [`Entity`] or it's [`Path`].
 
 ### Schemas
 
-A [`Schema`] is a description of the data  that is in a component. The [`PayloadDigest`] of a [`Schema`] called a <a id="SchemaId" href="#SchemaId">`SchemaId`</a>.
+A [`Schema`] is a description of the data that is in a component. The [`PayloadDigest`] of a [`Schema`] called a <a id="SchemaId" href="#SchemaId">`SchemaId`</a>.
 
 The data of a schema is [Borsh] serialized data matching the following format:
 
@@ -163,9 +163,99 @@ Still, nothing prevents the creation of unspecified schemas, so they are allowed
 
 [`BorshSchema`]s are used to describe the binary format of [`Component`] `data`. [`BorshSchema`]s are themselves serialized with [Borsh] according to the following format:
 
-> **⚠️ TODO:** specify the exact format for [`BorshSchema`]s. Significantly this will also include a discussion of the `Link` format along with methods of resolving the [`NamespaceId`] and [`SubspaceId`] in said `Link`s.
+```rust
+enum BorshSchema {
+    Null,
+    U8,
+    U16,
+    U32,
+    U64,
+    U128,
+    I8,
+    I16,
+    I32,
+    I64,
+    I128,
+    F32,
+    F64,
+    String,
+    Option {
+        schema: BorshSchema
+    },
+    Array {
+        schema: BorshSchema,
+        len: u32,
+    },
+    Tuple {
+        fields: Vec<BorshSchema>,
+    },
+    Struct {
+        fields: Vec<String, BorshSchema>,
+    },
+    Vector {
+        BorshSchema
+    },
+    Map {
+        key: BorshSchema,
+        value: BorshSchema,
+    },
+    Set {
+        schema: Borshchema
+    },
+    Link {
+        namespace: KeyResolverKind,
+        subspace: KeyResolverKind,
+        path: Vec<PathComponent>,
+        snapshot: Option<EntitySnapshotId>
+    }
+}
 
+enum KeyResolverKind {
+    Inline([u8; 32]),
+    Custom {
+        id: KeyResolverId,
+        data: Vec<u8>,
+    },
+}
+```
+
+The [`BorshSchema`] allows us to represent the [Borsh] data model so that we can use it to deserialize component data. Beyond the standard Borsh data model, we add one extension: the `Link` type.
+
+### Links
+
+A [`Link`] is a reference to an entity [`Entity`]. Links allow us to build expressive graphs with our entities.
+
+The `path` in the [`Link`] specifies the path to the entity in the `namespace` and `subspace`.
+
+The optional `snapshot` allows you to put the [`EntitySnapshotId`] in the link, so that even if the entity is changed, removed, or moved, you can still load the data of the entity, at the time that the link was made.
+
+The `namespace` and `subspace` specify the `KeyResolverKind` used to lookup the public keys for the spaces. The simplest `KeyResolverKind` is the `Inline` variant, which lets you hard-code the key. The `Custom` variant, allows you to use any [`KeyResolver`], and specify any data that the key resolver should use to resolve the key.
+
+[`Link`]: #links
 [`BorshSchema`]: #borsh-schemas
+
+### Key Resolvers
+
+A [`KeyResolver`] is a specification that describes a way to resolve some ID data to a [`NamespaceId`] or a [`SubspaceId`]. Key resolvers allow [`Link`]s to have a level of indirection, possibly using DNS or other mechanisms such as DIDs to lookup a key, instead of hardcoding it.
+
+The [`PayloadDigest`] of a [`KeyResolver`] is called a <a id="KeyResolverId" href="#KeyResolverId">`KeyResolverId`</a>.
+
+Key resolvers contain a specification, similar to a schema, that is meant to document how to use the key-resolver. Each app must decide which key resolvers to support. 
+
+[`KeyResolver`]s are stored in a content addressed store, and their data is [Borsh] serialized data matching the following format:
+
+```rust
+struct KeyResolver {
+    name: String,
+    specification: EntitySnapshotId,
+}
+```
+
+The `name` of the [`KeyResolver`] is a human readable name for documentation purposes.
+
+The `specification` is the ID of an [`EntitySnapshot`] that documents the key resolution process. The specification is usually **human documentation** that preferably includes all of the information necessary to implement the key resolver.
+
+[`KeyResolver`]: #key-resolvers
 
 ### Encryption Algorithms
 
@@ -185,7 +275,7 @@ The `name` is a human readable name for documentation purposes.
 The `specification` is the ID of an [`EntitySnapshot`] that documents the encryption algorithm. The specification is usually **human documentation** that preferably includes all of the information necessary to encrypt and decrypt data with the encryption algorithm.
 
 > **Note:** It is an interesting consideration that while the `specification` for an [`EncryptionAlgorithm`] should always include human documentation describing the algorithm, it might also contain additional machine-readable [`Component`]s, such as a [WASM] module that can be used to actually perform the encryption and decryption.
-> 
+>
 > If a standardized interface for encryption modules was developed, it might be possible to allow clients to automatically download and execute compatible encryption modules automatically.
 >
 > This kind of standard is allowed to develop on top of the Leaf protocol independently and is out of scope for this specification.
