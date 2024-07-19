@@ -32,7 +32,7 @@ Each [`Entity`] is stored in a Willow [`Namespace`][`NamespaceId`], under a spec
 
 #### Entity Path Components
 
-Each [`PathComponent`] for an entity must be [Borsh] serialized data matching the following format:
+Each [`PathComponent`] for an [`Entity`], other than the last one, must be [Borsh] serialized data matching the following format:
 
 ```rust
 enum PathComponent {
@@ -45,13 +45,15 @@ enum PathComponent {
 }
 ```
 
-Additionally, the last [`PathComponent`] in the [`Path`] must always be suffixed with a single null byte ( `0x00` ).
+Additionally, the last [`PathComponent`] in the [`Path`] for an [`Entity`] must always be empty, i.e. zero bytes.
 
-> **ℹ️ Explanation:** The null byte at the end of the last [`PathComponent`] makes sure that creating an entity will never accidentally trigger _prefix pruning_ and cause other entities to be deleted. See "prefix pruning" in the [Willow data model][wdm].
+> **ℹ️ Explanation:** The empty [`PathComponent`] at the end of each [`Path`] makes sure that creating an entity will never accidentally trigger _prefix pruning_ and cause other entities to be deleted. See "prefix pruning" in the [Willow data model][wdm].
 >
-> This means it is possible to store an entity at `"Hello"`/`"World"`/`1`, and still be able to store an entity at `"Hello"`/`"World"` without overwriting it.
+> This means it is possible to store an entity at `"Hello"`/`"World"`/`1`/`[empty]` , and still be able to store an entity at `"Hello"`/`"World"`/`[empty]` without overwriting it.
 >
 > This is incredibly useful for allowing for the existence of "Feed" entities, or other similar group entities, that describe the purpose of or add metadata relevant to entities in it's sub-paths.
+>
+> This also means that each [`NamespaceId`] + [`SubspaceId`] has one "default" entity, the one with only a single, empty [`PathComponent`], that can be used to describe the subspace.
 
 [`Path`]: https://willowprotocol.org/specs/data-model/index.html#Path
 [`PathComponent`]: https://willowprotocol.org/specs/data-model/index.html#Component
