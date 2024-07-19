@@ -3,7 +3,7 @@
 The Leaf Protocol is a data format on top of the [Willow Protocol][willow]. Willow deals with how data is replicated and stored amongst peers, providing access control as well as key-value-based byte storage. On top of Willow, Leaf provides:
 
 - A schema system and serialization format.
-- A standard for creating an Entity-Component, ["Web of Data"][wod].
+- A standard for creating an Entity-Component ["Web of Data"][wod].
 
 [willow]: https://willowprotocol.org/specs/index.html#specifications
 [wod]: https://zicklag.katharos.group/blog/a-web-of-data/
@@ -19,9 +19,11 @@ The three major components of the Leaf Protocol data model are [`Entity`]s, [`Co
 
 ### Entities
 
-An entity may represent any distinct "thing" that you may want to store or link to. This could be a chat message, a blog post, a comment, a feed, or anything else.
+An [`Entity`] represents any distinct "thing". This could be a chat message, a blog post, a comment, a feed, a profile, or anything else.
 
-Each entity is stored at a Willow [`Namespace`][`NamespaceId`] / [`Subspace`][`SubspaceId`] / [`Path`], with extra rules regarding the format of it's [`PathComponent`]s.
+Entities are able to store data by attaching [`Component`]s to them, and they may also be the target of [`Link`]s.
+
+Each [`Entity`] is stored in a Willow [`Namespace`][`NamespaceId`], under a specific [`Subspace`][`SubspaceId`] and [`Path`].  The [`PathComponent`]s must follow the [rules](#entity-path-components) below.
 
 > **Note:** In this spec we refer to [Willow path components][`PathComponent`] as [`PathComponent`]s, to distinguish it from [`Component`][`Component`]s for [`Entity`]s in this specification.
 
@@ -43,16 +45,17 @@ enum PathComponent {
 }
 ```
 
-Additionally, the last [`PathComponent`] in the path must always be suffixed with a single null byte ( `0x00` ).
+Additionally, the last [`PathComponent`] in the [`Path`] must always be suffixed with a single null byte ( `0x00` ).
 
-> **ℹ️ Explanation:** The null byte at the end of the last [`PathComponent`] makes sure that storing an entity will never accidentally trigger _prefix pruning_ ( search "prefix pruning" in the [Willow data model][wdm] ) for any other entities.
+> **ℹ️ Explanation:** The null byte at the end of the last [`PathComponent`] makes sure that creating an entity will never accidentally trigger _prefix pruning_ and cause other entities to be deleted. See "prefix pruning" in the [Willow data model][wdm].
 >
 > This means it is possible to store an entity at `"Hello"`/`"World"`/`1`, and still be able to store an entity at `"Hello"`/`"World"` without overwriting it.
 >
-> This is incredibly useful for allowing for the existence of "Feed" entities, or other similar group entities, that describe aspects of the entities in the paths below them.
+> This is incredibly useful for allowing for the existence of "Feed" entities, or other similar group entities, that describe the purpose of or add metadata relevant to entities in it's sub-paths.
 
 [`Path`]: https://willowprotocol.org/specs/data-model/index.html#Path
 [`PathComponent`]: https://willowprotocol.org/specs/data-model/index.html#Component
+[wdm]: https://willowprotocol.org/specs/data-model/index.html
 [`Entity`]: #entities
 [Borsh]: https://borsh.io/
 
@@ -63,7 +66,8 @@ The [`Payload`] of an entity must be a sorted list of [`ComponentId`]s.
 > **Note:** Since [`ComponentId`]s are each [`PayloadDigest`]s, they must be sorted according to the [total order][ordered] of the [`PayloadDigest`]. The Willow protocol requires that [`PayloadDigest`]s have a total order.
 
 This sorted list of [`ComponentId`]s is called an <a id="EntitySnapshot" href="#EntitySnapshot">`EntitySnapshot`</a>.
-Correspondingly the [`PayloadDigest`] of the [`EntitySnapshot`] is called an <a id="EntitySnapshotId" href="#EntitySnapshotId">`EntitySnapshotId`</a>.
+
+The [`PayloadDigest`] of the [`EntitySnapshot`] is called an <a id="EntitySnapshotId" href="#EntitySnapshotId">`EntitySnapshotId`</a>.
 
 [ordered]: https://en.wikipedia.org/wiki/Total_order
 [`EntitySnapshot`]: #EntitySnapshot
@@ -75,9 +79,9 @@ Correspondingly the [`PayloadDigest`] of the [`EntitySnapshot`] is called an <a 
 
 [`Component`]s are pieces of data that may be attached to an [`Entity`]. The [`PayloadDigest`] of a [`Component`] is called it's <a id="ComponentId" href="#ComponentId">`ComponentId`</a>.
 
-Components are stored individually in a [content addressable store][`PayloadDigest`], most-likely the one used by the Willow implementation for storing [`Payload`]s.
+Components are stored individually in a [content addressable store][`PayloadDigest`]. This is usually the same store used by the Willow implementation for storing [`Entity`] [`Payload`]s.
 
-The content of a [`Component`] is [Borsh] serialized data matching the following format:
+The data of a [`Component`] is [Borsh] serialized data matching the following format:
 
 ```rust
 enum Component {
@@ -109,13 +113,13 @@ The interpretation of `key_id` may be different between different encryption alg
 [`Component`]: #components
 [`ComponentId`]: #ComponentId
 
-> **ℹ️ Explanation:** This design allows for individual [`Component`]s on an [`Entity`] to be encrypted, even if other components are not encrypted. This could be useful, for example, on a user profile, where the Email for the user profile might be encrypted so that the user can choose to share it with only specific other users or services.
+> **ℹ️ Explanation:** This design allows for individual [`Component`]s of an [`Entity`] to be encrypted, even if other components are not encrypted. This could be useful, for example, on a user profile, where the Email for the user profile might be encrypted so that the user can choose to share it only with specific users or services.
 >
 > This does not prevent you from using Willow's own encryption mechanisms to encrypt the entire [`Entity`] or it's [`Path`].
 
 ### Schemas
 
-A [`Schema`] is a description of the data that is in a component. The [`PayloadDigest`] of a [`Schema`] called a <a id="SchemaId" href="#SchemaId">`SchemaId`</a>.
+A [`Schema`] is a description of the data that is in a component. The [`PayloadDigest`] of a [`Schema`] is called a <a id="SchemaId" href="#SchemaId">`SchemaId`</a>.
 
 The data of a schema is [Borsh] serialized data matching the following format:
 
@@ -133,11 +137,21 @@ The `format` is a [Borsh] serialized [`BorshSchema`]. This [`BorshSchema`] may b
 
 The `specification` is an [`EntitySnapshotId`] that represents the human-readable specification describing how the component data is meant to be interpreted.
 
+> **ℹ️ Explanation ( Component Specifications ):** While the `format` in a schema is enough information to deserialize the component data, it does not give humans enough information to understand how it should be used in an application. For example, two different components might have exactly the same `format` containing a single `String` type, even though one is mean to be an email address and the other is meant to be a name. It is the specification that distinguishes them from each other and provides guidance on how applications are meant to use the data.
+
+> **ℹ️ Explanation ( Documenting Specifications ):** [`Schema`]s, [`EncryptionAlgorithm`]s, and [`KeyResolver`]s all use an [`EntitySnapshot`] to document their `specification`s. This means that the documentation itself is described by the [`Component`]s in that [`EntitySnapshot`].
+>
+> The simplest form of documentation would be to add a single [ASCII Component](#the-ascii-schema) to the [`EntitySnapshot`], containing a human explanation of the specification. Alternatives could include using a `Markdown` component or an `HTML` component. This is intentionally flexible, and may even include WASM modules if useful. ( See the [note](#encryption-wasm) on [`EncryptionAlgorithm`]s. )
+>
+> Since each [`Component`] used to document a specification must have it's own [`Schema`], with it's own specification, you will always be able to follow the chain of specifications components and their schemas until you get to an [ASCII component](#the-ascii-schema).
+
 #### Bootstrapping Schemas
 
-Because a [`Schema`] is required to have a `specification`, which links to an [`EntitySnapshot`] that, in turn, contains [`Component`]s, which must also contain a [`Schema`], you run into a situation where the first schema that is ever created must have a `specification` that is set to the empty [`EntitySnapshot`]. This is called an [_unspecified schema_](#unspecified-schemas).
+Because [`Schema`] `specification`s are [`EntitySnapshot`]s that, in turn, contains [`Component`]s with their own [`Schema`]s, and all of them are linked by digest, it is impossible to create a [`Schema`] that uses itself in it's specification documentation. In other words, [`Schema`]s and `specifications` create a Directed Acyclic Graph ( DAG ).
 
-This means that each specified schema, must eventually, down the chain of components and their schemas, be documented by an _unspecified_ schema. This is not ideal, so we define one special case of unspecified schema in this specification, the [Ascii Schema](#the-ascii-schema), which is useful for adding to the `specification` of other schemas.
+This situation means that the first schema that is ever created must have a `specification` that is set to an empty [`EntitySnapshot`]. This is called an [_unspecified schema_](#unspecified-schemas).
+
+Each specified schema, must eventually, down the chain of components and their schemas, be documented by an _unspecified_ schema. This is not ideal, so we define one special case of unspecified schema, the [Ascii Schema](#the-ascii-schema).
 
 #### The ASCII Schema
 
@@ -145,15 +159,15 @@ When all the following are true of a [`Schema`], it describes the `ASCII` schema
 
 - The `name` is set to `ASCII`
 - The `specification` is set to the ID of the empty [`EntitySnapshot`]
-- The `format` is set to the [`BorshSchema`] representing a single `String` primitive
+- The `format` is set to [`BorshSchema::String`][`BorshSchema`]
 
 #### Unspecified Schemas
 
-When any schema that is not the [ASCII Schema](#the-ascii-schema) has a `specification` set to the ID of the empty [`EntitySnapshot`] is is called an _unspecified schema_.
+When any schema that is **not** the [ASCII Schema](#the-ascii-schema) has a `specification` set to the empty [`EntitySnapshot`] is is called an _unspecified schema_.
 
 Unspecified schemas are generally discouraged, because although the `format` will describe the data layout of a component with the schema, it does not give any indication how that data is meant to be interpreted by apps or humans. This makes unspecified schemas ambiguous, and one app may interpret an unspecified schema in a different way than another app.
 
-Still, nothing prevents the creation of unspecified schemas, so they are allowed by this specification.
+Still, nothing prevents the creation of unspecified schemas, so they are allowed to exist and be used on [`Entity`]s.
 
 [`Schema`]: #schemas
 [`SchemaId`]: #SchemaId
@@ -219,7 +233,7 @@ enum KeyResolverKind {
 }
 ```
 
-The [`BorshSchema`] allows us to represent the [Borsh] data model so that we can use it to deserialize component data. Beyond the standard Borsh data model, we add one extension: the `Link` type.
+The [`BorshSchema`] allows us to represent the [Borsh] data model so that we can deserialize component data with it. Beyond the standard Borsh data model, we add one extension: the [`Link`] type.
 
 ### Links
 
@@ -227,20 +241,20 @@ A [`Link`] is a reference to an entity [`Entity`]. Links allow us to build expre
 
 The `path` in the [`Link`] specifies the path to the entity in the `namespace` and `subspace`.
 
-The optional `snapshot` allows you to put the [`EntitySnapshotId`] in the link, so that even if the entity is changed, removed, or moved, you can still load the data of the entity, at the time that the link was made.
+The optional `snapshot` allows you to put the [`EntitySnapshotId`] in the link, so that even if the entity is changed, moved, or deleted you can still load the data of the entity, at the time that the link was made.
 
-The `namespace` and `subspace` specify the `KeyResolverKind` used to lookup the public keys for the spaces. The simplest `KeyResolverKind` is the `Inline` variant, which lets you hard-code the key. The `Custom` variant, allows you to use any [`KeyResolver`], and specify any data that the key resolver should use to resolve the key.
+The `namespace` and `subspace` specify the `KeyResolverKind` used to lookup the public keys that identify the spaces. The simplest `KeyResolverKind` is the `Inline` variant, which lets you hard-code the key. The `Custom` variant, allows you to use any [`KeyResolver`] and `data` input to the [`KeyResolver`].
 
 [`Link`]: #links
 [`BorshSchema`]: #borsh-schemas
 
 ### Key Resolvers
 
-A [`KeyResolver`] is a specification that describes a way to resolve some ID data to a [`NamespaceId`] or a [`SubspaceId`]. Key resolvers allow [`Link`]s to have a level of indirection, possibly using DNS or other mechanisms such as DIDs to lookup a key, instead of hardcoding it.
+A [`KeyResolver`] is a specification that describes a way to resolve some data to a [`NamespaceId`] or a [`SubspaceId`]. Key resolvers allow [`Link`]s to have a level of indirection, possibly using DNS or other mechanisms such as DIDs to lookup a key, instead of hardcoding it.
 
 The [`PayloadDigest`] of a [`KeyResolver`] is called a <a id="KeyResolverId" href="#KeyResolverId">`KeyResolverId`</a>.
 
-Key resolvers contain a specification, similar to a schema, that is meant to document how to use the key-resolver. Each app must decide which key resolvers to support. 
+Key resolvers contain a `specification`, similar to a [`Schema`], that documents how to implement the key-resolver. Each app must decide which key resolvers to implement. 
 
 [`KeyResolver`]s are stored in a content addressed store, and their data is [Borsh] serialized data matching the following format:
 
@@ -253,13 +267,15 @@ struct KeyResolver {
 
 The `name` of the [`KeyResolver`] is a human readable name for documentation purposes.
 
-The `specification` is the ID of an [`EntitySnapshot`] that documents the key resolution process. The specification is usually **human documentation** that preferably includes all of the information necessary to implement the key resolver.
+The `specification` is the ID of an [`EntitySnapshot`] documenting the key resolution process. The specification is usually **human documentation** that preferably includes all of the information necessary to implement the key resolver.
 
 [`KeyResolver`]: #key-resolvers
 
 ### Encryption Algorithms
 
-An [`EncryptionAlgorithm`] is a `name` and a `specification` describing how data may be encrypted and decrypted. The [`PayloadDigest`] of an [`EncryptionAlgorithm`] is called an <a id="EncryptionAlgorithmId" href="#EncryptionAlgorithmId">`EncryptionAlgorithmId`</a>.
+An [`EncryptionAlgorithm`] is specification describing how data may be encrypted and decrypted.
+
+The [`PayloadDigest`] of an [`EncryptionAlgorithm`] is called an <a id="EncryptionAlgorithmId" href="#EncryptionAlgorithmId">`EncryptionAlgorithmId`</a>.
 
 The data of an [`EncryptionAlgorithm`] is [Borsh] serialized data matching the following format:
 
@@ -274,11 +290,11 @@ The `name` is a human readable name for documentation purposes.
 
 The `specification` is the ID of an [`EntitySnapshot`] that documents the encryption algorithm. The specification is usually **human documentation** that preferably includes all of the information necessary to encrypt and decrypt data with the encryption algorithm.
 
-> **Note:** It is an interesting consideration that while the `specification` for an [`EncryptionAlgorithm`] should always include human documentation describing the algorithm, it might also contain additional machine-readable [`Component`]s, such as a [WASM] module that can be used to actually perform the encryption and decryption.
+> **Note:** <a id="encryption-wasm"></a> It is an interesting consideration that while the `specification` for an [`EncryptionAlgorithm`] should always include human documentation describing the algorithm, it might also contain additional machine-readable [`Component`]s, such as a [WASM] module that can be used to actually perform the encryption and decryption.
 >
 > If a standardized interface for encryption modules was developed, it might be possible to allow clients to automatically download and execute compatible encryption modules automatically.
 >
-> This kind of standard is allowed to develop on top of the Leaf protocol independently and is out of scope for this specification.
+> This kind of standard is allowed to develop on top of the Leaf protocol independently. Details on how this might be done is out of scope for this specification.
 
 [WASM]: https://webassembly.org/
 [`EncryptionAlgorithm`]: #encryption-algorithms
