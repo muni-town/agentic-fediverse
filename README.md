@@ -7,18 +7,18 @@ still trying to define more concretely.
 
 [ActivityPub]: https://activitypub.rocks/
 
-## Tenets
+### Tenets
 
 We are still working on defining the core tenets of the agentic fediverse, but here is what we have so far.
 
 An agentic fediverse is..
 
 1. **A fediverse of agents**; agent-centric, as opposed to server-centric.
-2. **Accessible by default**; inaccessibility is a bug.
-3. **Systematically consensual**; architected on the basis of informed consent.
-4. **Local-first**; solve local problems for local people.
+2. **Local-first**; solve local problems for local people.
+3. **Accessible by default**; inaccessibility is a bug.
+4. **Systematically consensual**; architected on the basis of informed consent.
 
-## Primer
+### Primer
 
 The word *agentic* occurs primarily in the social sciences, pertaining to an individual's agency, often used interchangeably with _autonomy_ or _self-determination_.
 
@@ -26,7 +26,9 @@ The word *agentic* occurs primarily in the social sciences, pertaining to an ind
 
 To be _agentic_ is to be agency-driven and agent-centric. An agentic system optimizes for agency, for example by measuring _user agency_ as a metric of success.
 
-### The minimal definition of user agency
+# Definitive Topics
+
+## The minimal definition of user agency
 
 Gordon Brander, jamming on recurring ideas in the web3 space, proposes a _[minimal definition of user agency](https://newsletter.squishy.computer/p/the-minimal-definition-of-user-agency):_
 
@@ -44,7 +46,7 @@ Gordon Brander, jamming on recurring ideas in the web3 space, proposes a _[minim
 >  
 > When you own your ID, content, and contacts, you have agency, because you have credible exit. You can seamlessly change services and bring everything important with you, like switching carriers for your mobile phone.
 
-### Credible exit
+## Credible exit
 
 [Vendor lock-in](https://en.wikipedia.org/wiki/Vendor_lock-in), e.g. by way of data lock-in, is by definition an anti-agentic feature. European internet users' _right to exit_ is even codified by law in the [GDPR's Right of Access](https://www.dataprotection.ie/en/individuals/know-your-rights/right-access-information).
 
@@ -80,7 +82,7 @@ Continued in [Freedom to exit](https://newsletter.squishy.computer/p/freedom-to-
 > - **Local-first data:** no one can tell you no because you already have your data.
 > - **Legal agreements:** no one can tell you no because you have a contract or license in place that guarantees access to your data.
 
-### The web is for user agency
+## The web is for user agency
 
 https://berjon.com/user-agency/
 
@@ -95,9 +97,66 @@ https://berjon.com/user-agency/
 > 
 > These shared foundations for Web technologies (which the W3C refers to as "horizontal review" but they have broader applicability in the Web community beyond standards) are all specific, concrete implementations of the Web's goal of developing user agency — they are about capabilities. We don't habitually think of them as ethical or political goals, but they are: they aren't random things that someone did for fun — they serve a purpose. And they work because they implement ethics that get dirty with the tangible details.
 
-## Resources
+## The Great Untangling (series)
 
-A couple of us have also written some notes / posts on the agentic fediverse:
+### Reclaiming (my) digital identity
+
+https://blog.erlend.sh/reclaiming-my-digital-identity
+
+> #### Connective tissue
+> 
+> I've grown up in an unprecedented time of connective magic. Unlike my ancestors, I have known not tens, not hundreds, but thousands of people with whom I co-created something of value. Such is the power of the digital age. My deepest connections exist locally, offline. Yet many of those connections were initially mediated through the incredible connective tissue of the internet.
+> 
+> My life as a somewhat odd person would have been a profoundly lonely one had it not been for the online spaces where I found The Others; fellow weirdos interested in play-crafts like storytelling and game development, coupled with an obsession for openness as a means to digital emancipation. To most of the thousands of people I've come across in my two decades as a netizen, the digital expression of my persona is my entire persona. I hope to live long enough to engage in a physical handshake or even an embrace with many of my online friends, but I recognize that a large number of these connections will forever remain purely digital.
+> 
+> Therefore it is acutely important to me that my digital identity properly reflects my truest self. I want the people in my life to have seen and known the real me, regardless of whether they came into contact with my physical or digital being.
+>   
+> #### Identity prison
+> 
+> And therein lies my predicament: Ever since I first logged on to the internet, I've never had legitimate ownership of my own digital identity. My digital expression has always been mediated through some higher power. Sadly not of the paternal kind that intends to lift my spirit up until I can stand on my own.
+
+### Websites as the atomic matter of the internet
+> https://blog.erlend.sh/weird-web-pages#website
+> I consider the personal website to be the smallest possible building block of web identity. Once you wanna go past the observer (READ) level to the contributor (WRITE) level as a netizen, you’re gonna need a material web-persona to make yourself known. Unfortunately we never made personal websites easy enough to build, so the likes of Facebook became mainstream persona providers.
+>
+> (...)
+> 
+> ### Web pages materialize the internet
+> 
+> The size of the internet can be measured in the atomic mass of the websites it's made up of. We collectively materialize the internet with every additional web page we create.
+
+> https://blog.erlend.sh/assembling-community-os
+> Digital autonomy begets individual freedom begets fairness & equality.
+> 
+> The hopeful possibility of this moment lies in the open-social web protocols which make up the foundations of a comms & coordination ecosystem owned and operated by the general public.
+
+## Decentralize ownership; Recentralize agency
+
+> https://blog.erlend.sh/weird-netizens
+> To free ourselves of our current predicament, we must simultaneously de-centralize and re-centralize identity.
+> 
+> By de-centralizing the ownership of identity away from platform monopolies and back to individuals, we can re-centralize the agency of personhood.
+> 
+> Once more for clarity:
+> Decentralize ownership.
+> Recentralize agency.
+> 
+> The central authority of ones digital identity must first and foremost be the individual themselves. That's how we regain our digital sovereignty.
+>
+> (...)
+>
+> ### Decoupling Identity
+> 
+> All mainstream identity providers get you hooked into their ID-network by means of a tight coupling between a light identity layer plus a heavy service:
+>
+> GitHub: ID + git
+> Discord: ID + chat
+> Gmail: ID + email
+> The indivisibility of this coupling weakens our digital sovereignty. Even if I stopped using Gmail for email, I still rely heavily on it for my authentication to hundreds of sites & services. It’s part of their lock-in scheme.
+> 
+> Gmail et.al. make identity confusing because they've made it appear necessarily coupled with an overarching complexity like email or a social network. But identity should stand on its own. In fact it is paramount that our identity is not owned by a personal-data-loving megacorp because there's nothing more valuable for them to keep locked up than the very essence of your digital self.
+
+# Resources
 
 - https://newsletter.squishy.computer/p/credible-exit
 - https://newsletter.squishy.computer/p/redecentralization
