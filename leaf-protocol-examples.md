@@ -30,7 +30,7 @@ This could have these sorts of Components (and of course many more):
 
 When considering how to link in data that's being provided by an identity, prefer Components on the root Entity, rather than conventional paths.
 
-e.g. For a user's cooking recipes, don't do "find their space, and look at `/cooking`. Insted do "look up the Recipes Component on their profile, which will have a Link to some subtree".
+e.g. For a user's cooking recipes, don't do "find their space, and look at `/cooking`. Instead do "look up the Recipes Component on their profile, which will have a Link to some subtree".
 
 ## Subtrees for different audiences.
 
