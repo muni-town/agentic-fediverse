@@ -156,7 +156,65 @@ https://blog.erlend.sh/reclaiming-my-digital-identity
 > 
 > Gmail et.al. make identity confusing because they've made it appear necessarily coupled with an overarching complexity like email or a social network. But identity should stand on its own. In fact it is paramount that our identity is not owned by a personal-data-loving megacorp because there's nothing more valuable for them to keep locked up than the very essence of your digital self.
 
-# Resources
+## How to Federate (agentically)?
+
+https://zicklag.katharos.group/blog/how-to-federate/
+
+> Wouldn’t it be awesome if your data could be stored locally on your own computer, you could author posts offline, and even host your profile right from home if you wanted, too, just by keeping a tab open in your browser, or installing a normal app!
+> 
+> Servers could become optional. They would be very handy for keeping your data backed up, and for hosting your public data when your computer isn’t on, but they wouldn’t need to have any power over you as a self-sovereign agent on the web.
+> 
+You could even have multiple servers that keep your data backed up, and you could move from one server to another easily, because it’s all built on data synchronization, not messaging and mailboxes.
+> 
+> I think this model is still technically “federation”, but it’s much more peer-to-peer than Email or Mastodon, for instance. We’re envisioning a fediverse of individual agents, not a fediverse of servers. We want an agentic fediverse.
+
+### Incremental Complexity & Superb User Experience
+
+> One of the major caveats of true self-sovereignty for users is that it comes with greater responsibility. For example if you are truly the only one with the power to control your identity, if you lose your password, nobody can help you recover it, unless you setup some backup or recovery method yourself. If somebody else could recover it for you, i.e. a server, then the server would have the power to steal your identity.
+> 
+> But that’s kind of how it’s always been. The server can reset your password, and in many cases, that will be the best user experience. The important part is having a choice, and being able to change your mind later.
+
+## A Plan for Social Media - Rethinking Federation
+
+https://raphael.lullis.net/a-plan-for-social-media-less-fedi-more-webby/
+
+### The server is the wrong place for application logic
+
+> All these issues could’ve been avoided if the decision-making process was delegated to the client. It’s nice that the server can make search queries, but it would be even better if the client could choose a separate, “global” search engine. It’s nice that the server can make recommendations for accounts to follow, but it would be even better if I had a menu pointing me to external services that are dedicated to this task. By forcing the user to do everything through the server, we become needlessly dependent on it.
+
+### Networks are smarter at the edges
+
+> The “server-centric” approach to the application development is at odds with the nature of distributed systems. We need to stop treating the client as a dumb terminal and give it as much power (and responsibility) as possible.
+
+### The proposal: a Social Web browser, built into the browser
+
+> If we have the client as the center piece of our social web, why not build it already in the foundation of the web client that is already used by virtually everyone?
+
+## (Thoughts on) Fedi v2
+
+https://www.thepaperpilot.org/garden/fedi-v2/
+
+### Motivation
+
+> The current fediverse, while in theory fully Decentralized, in practice suffers many of the issues associated with centralization. This is primarily caused by the friction of having to pick a server and the non feasibility of individuals buying a domain and setting up a single user instance - both of these causes lead to a handful of large servers with the bulk of the users. You can see this in action by looking up the relative sizes of lemmy and mastodon instances. Single-user Mastodon Instance is a Bad Idea goes over the non feasibility of self hosting and how it contributes to a handful of servers having the majority of the users.
+> 
+> The promise of federation is the ability to interact with the whole network, while being able to fully choose and customize how you yourself interact with the network. In practice though, clients are severely limited to what they can do based on the server software. Of particular note, Lemmy and Mastodon show content in different formats (threads vs microblogs), and no clients allow changing how they're displayed, or respecting the format of the source of the content. Clients also are unable to change sorting algorithms or how downvotes are handled - those are all dependent on the server. A Plan for Social Media - Rethinking Federation similarly criticizes how much of the decisions are dependent on the server, which most people won't be able to or willing to self host.
+> 
+> The pick a server problem is such a problem because not only do you have to pick what server has moderation policies you align with, but that you're also linking your identity with that server. Smaller servers tend to be more focused or niche, which is unlikely to fully encompass any person's entire identity. Why would I confine myself to being thepaperpilot@writinglovers.com if I'm more than a writing lover? Additionally, I'm risking that the community at that instance won't grow away from things I want to associate with, such as fascism or crypto. My identity could end up being associated with things I drastically don't want it to be.
+
+## A Web of Data
+
+https://zicklag.katharos.group/blog/a-web-of-data/
+
+> Today the internet is made up primarily of a web of HTML pages. The HTML usually contains or references CSS and JavaScript that is largely concerned with the presentation or interactivity of that page. We need massively complicated web browsers and web standards to actually view these pages as they are meant to be viewed.
+
+> Imagine an alternative internet protocol were each “thing” on the internet is an “Entity”. Entities might represent blog articles, chat messages, tweets, comments, or anything else. Each entity also has a path to that entity, like a URL.
+
+> This might help us converge on one shared, flexible data protocol, similar to the internet of HTML pages that exists today, instead of having to make new protocols and APIs every time we want to let other people create custom frontends to our data.
+> 
+> It will inherently be a web of data, and presentation will be an optionally configurable layer on top, not an inescapable necessity for delivering your content.
+
+# Links
 
 - https://newsletter.squishy.computer/p/credible-exit
 - https://newsletter.squishy.computer/p/redecentralization
