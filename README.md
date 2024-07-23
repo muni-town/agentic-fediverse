@@ -132,6 +132,24 @@ https://erinkissane.com/meta-in-myanmar-part-iv-only-connect/
 > 
 > So I think there are two linked things Meta could have done to prevent so much damage, which are to *listen out* for people in trouble and *meaningfully correct course*.
 
+## Root & Branch
+
+https://erinkissane.com/root-branch
+
+> To recap: Things are weird on the networks. Weird like wyrd, though our fates remain unsettled; weird like wert-, the turning, the winding, the twist.
+> 
+> I think one of the deep weirdnesses is that lots of us we know what we don’t want, which is more of whatever thing we’ve been soaking in. But I think many—maybe all?—of the new-school networks with wind in their sails are defined more by what they aren’t than what they are: Not corporate-owned. Not centralized. Not entangled in inescapable surveillance, treadmill algorithms, ad models, billionaire brain injury. In many cases, not governable.
+> 
+> It’s not an untenable beginning, and maybe it’s a necessary phase, like adolescence. But I don’t think it’s sufficient—not if we want to build structures for collaboration and communion instead of blasted landscapes ruled by warlords.
+
+### Taproots
+
+> Two big root-level things that I think we haven’t properly sorted out:
+> 
+> - **Resources:** All networks require a whole lot of time and money to run well—the more meticulously run, the more money and time are required, and this is true whether we’re talking about central conglomerates or distributed networks. If we want to avoid just the most obvious bad incentives, where does that money and time come from?
+> - **Governance:** Who—what people, what kind of people, what structures made of people—should we trust to do the heavy, tricky, fraught work of making and keeping our networks good? How should they work? To whom should they be accountable, and how can “accountability” be redeemed from its dissipated state and turned into something with both teeth and discretion?
+
+
 ## The web is for user agency
 
 https://berjon.com/user-agency/
