@@ -82,6 +82,44 @@ Continued in [Freedom to exit](https://newsletter.squishy.computer/p/freedom-to-
 > - **Local-first data:** no one can tell you no because you already have your data.
 > - **Legal agreements:** no one can tell you no because you have a contract or license in place that guarantees access to your data.
 
+## Meta in Myanmar, Part IV: Only Connect
+
+https://erinkissane.com/meta-in-myanmar-part-iv-only-connect/
+
+> The Atlantic Council’s report on the looming challenges of scaling trust and safety on the web opens with this statement:
+> 
+> "That which occurs offline will occur online."
+> 
+> I think the reverse is also true: That which occurs online will occur offline.
+> 
+> Our networks don’t create harms, but they reveal, scale, and refine them, making it easier to destabilize societies and destroy human beings. The more densely the internet is woven into our lives and societies, the more powerful the feedback loop becomes.
+> 
+> In this way, our networks—and specifically, the most vulnerable and least-heard people inhabiting them—have served as a very big lab for gain-of-function research by malicious actors.
+
+### The allure of the do-over
+
+> The internet in Myanmar was born at a few seconds to midnight. Our new platforms and tools for global connection have been born into a moment in which the worst and most powerful bad actors, both political and commercial, are already prepared to exploit every vulnerability.
+> 
+> We don’t get a do-over planet. We won’t get a do-over network.
+> 
+> Instead, we have to work with the internet we made and find a way to rebuild and fortify it to support the much larger projects of repair—political, cultural, environmental—that are required for our survival.
+
+### The benefits and limits of defederation
+
+> Another characteristic of fediverse (by which I mean “Activity-Pub-based servers, mostly interoperable”) networks is the ability for both individual users and whole instances to defederate from each other. The ability to “wall off” instances hosting obvious bad actors and clearly harmful content offers ways for good-faith instance administrators to sharply reduce certain kinds of damage.
+>
+> (...)
+> 
+> A related threat that was expressed to me by someone who’s been working on the ground in Myanmar for years is that authoritarian governments will corral their citizens on instances/servers that they control, permitting both surveillance and government-friendly moderation of propaganda.
+
+### Meta’s fatal flaw
+
+> I think if you ask people why Meta failed to keep itself from being weaponized in Myanmar, they’ll tell you about optimizing for engagement and ravenously, heedlessly pursuing expansion and profits and continuously f***ing up every part of content moderation.
+> 
+> I think those things are all correct, but there’s something else, too, though “heedless” nods toward it: As a company determined to connect the world at all costs, Meta failed, spectacularly, over and over, to make the connections that mattered, between their own machinery and the people it hurt.
+> 
+> So I think there are two linked things Meta could have done to prevent so much damage, which are to *listen out* for people in trouble and *meaningfully correct course*.
+
 ## The web is for user agency
 
 https://berjon.com/user-agency/
@@ -164,7 +202,7 @@ https://zicklag.katharos.group/blog/how-to-federate/
 > 
 > Servers could become optional. They would be very handy for keeping your data backed up, and for hosting your public data when your computer isn’t on, but they wouldn’t need to have any power over you as a self-sovereign agent on the web.
 > 
-You could even have multiple servers that keep your data backed up, and you could move from one server to another easily, because it’s all built on data synchronization, not messaging and mailboxes.
+> You could even have multiple servers that keep your data backed up, and you could move from one server to another easily, because it’s all built on data synchronization, not messaging and mailboxes.
 > 
 > I think this model is still technically “federation”, but it’s much more peer-to-peer than Email or Mastodon, for instance. We’re envisioning a fediverse of individual agents, not a fediverse of servers. We want an agentic fediverse.
 
