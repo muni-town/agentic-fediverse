@@ -82,6 +82,18 @@ Continued in [Freedom to exit](https://newsletter.squishy.computer/p/freedom-to-
 > - **Local-first data:** no one can tell you no because you already have your data.
 > - **Legal agreements:** no one can tell you no because you have a contract or license in place that guarantees access to your data.
 
+## Our haunted internet
+
+https://erinkissane.com/tomorrow-and-tomorrow-and-tomorrow
+
+> The structures of our network commons have concentrated our responses to the forces already pressing against our livelihoods and children and futures. Within their engagement-optimized interfaces, we’ve built ourselves into a standing wave: Abusive posts became network-wide events that require a response not only from moderating authorities, but from every user.
+> 
+> In this machine, silence transmutes to approval of the worst thing happening; via entirely real human needs for signals of safety and support, continuous attention and engagement become mandatory. Simply bad posts are opportunities for demonstrations of prowess. People we agree with become footholds for demonstrating all the subtle ways in which they don’t quite understand. Sometimes—rarely—these moves result in policy changes, but fight and flight and status display all taste the same to the machine.
+
+> In the machine, we are always forgetting, chasing the same discourses and panics in circles. Instead of making restitution, we wait for the cycle to erase the screen and carry on as before. Stay long enough and everything rhymes with something that gave you scars, but that everyone else has forgotten. Resolution eludes us online even more than off. (...)
+>
+> We won’t technologize our way out of the ghost machine. I don’t think we’ll mod our way out, either. Actual trust and real safety do require protection from griefers and villains—and abuses of authority—but that’s table stakes: that’s the floor.
+
 ## Meta in Myanmar, Part IV: Only Connect
 
 https://erinkissane.com/meta-in-myanmar-part-iv-only-connect/
