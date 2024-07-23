@@ -28,6 +28,16 @@ To be _agentic_ is to be agency-driven and agent-centric. An agentic system opti
 
 # Definitive Topics
 
+## The Web We Lost
+
+https://www.anildash.com/2012/12/13/the_web_we_lost/
+
+> This isn’t our web today. We’ve lost key features that we used to rely on, and worse, we’ve abandoned core values that used to be fundamental to the web world. To the credit of today’s social networks, they’ve brought in hundreds of millions of new participants to these networks, and they’ve certainly made a small number of people rich.
+>
+> But they haven’t shown the web itself the respect and care it deserves, as a medium which has enabled them to succeed. And they’ve now narrowed the possibilites of the web for an entire generation of users who don’t realize how much more innovative and meaningful their experience could be.
+
+> This isn’t some standard polemic about “those stupid walled-garden networks are bad!” I know that Facebook and Twitter and Pinterest and LinkedIn and the rest are great sites, and they give their users a lot of value. They’re amazing achievements, from a pure software perspective. But they’re based on a few assumptions that aren’t necessarily correct. The primary fallacy that underpins many of their mistakes is that user flexibility and control necessarily lead to a user experience complexity that hurts growth. And the second, more grave fallacy, is the thinking that exerting extreme control over users is the best way to maximize the profitability and sustainability of their networks.
+
 ## The minimal definition of user agency
 
 Gordon Brander, jamming on recurring ideas in the web3 space, proposes a _[minimal definition of user agency](https://newsletter.squishy.computer/p/the-minimal-definition-of-user-agency):_
