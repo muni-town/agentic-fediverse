@@ -180,6 +180,7 @@ Still, nothing prevents the creation of unspecified schemas, so they are allowed
 ```rust
 enum BorshSchema {
     Null,
+    Bool,
     U8,
     U16,
     U32,
