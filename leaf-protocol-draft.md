@@ -207,6 +207,9 @@ enum BorshSchema {
     Struct {
         fields: Vec<String, BorshSchema>,
     },
+    Enum {
+        variants: Vec<(String, BorshSchema)>,
+    },
     Vector {
         BorshSchema
     },
