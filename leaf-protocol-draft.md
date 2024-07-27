@@ -143,9 +143,9 @@ The `specification` is an [`EntitySnapshotId`] that represents the human-readabl
 
 > **ℹ️ Explanation ( Documenting Specifications ):** [`Schema`]s, [`EncryptionAlgorithm`]s, and [`KeyResolver`]s all use an [`EntitySnapshot`] to document their `specification`s. This means that the documentation itself is described by the [`Component`]s in that [`EntitySnapshot`].
 >
-> The simplest form of documentation would be to add a single [ASCII Component](#the-ascii-schema) to the [`EntitySnapshot`], containing a human explanation of the specification. Alternatives could include using a `Markdown` component or an `HTML` component. This is intentionally flexible, and may even include WASM modules if useful. ( See the [note](#encryption-wasm) on [`EncryptionAlgorithm`]s. )
+> The simplest form of documentation would be to add a single [UTF-8 Component](#the-utf-8-schema) to the [`EntitySnapshot`], containing a human explanation of the specification. Alternatives could include using a `Markdown` component or an `HTML` component. This is intentionally flexible, and may even include WASM modules if useful. ( See the [note](#encryption-wasm) on [`EncryptionAlgorithm`]s. )
 >
-> Since each [`Component`] used to document a specification must have it's own [`Schema`], with it's own specification, you will always be able to follow the chain of specifications components and their schemas until you get to an [ASCII component](#the-ascii-schema).
+> Since each [`Component`] used to document a specification must have it's own [`Schema`], with it's own specification, you will always be able to follow the chain of specifications components and their schemas until you get to an [UTF-8 component](#the-utf-8-schema).
 
 #### Bootstrapping Schemas
 
@@ -153,19 +153,25 @@ Because [`Schema`] `specification`s are [`EntitySnapshot`]s that, in turn, conta
 
 This situation means that the first schema that is ever created must have a `specification` that is set to an empty [`EntitySnapshot`]. This is called an [_unspecified schema_](#unspecified-schemas).
 
-Each specified schema, must eventually, down the chain of components and their schemas, be documented by an _unspecified_ schema. This is not ideal, so we define one special case of unspecified schema, the [Ascii Schema](#the-ascii-schema).
+Each specified schema, must eventually, down the chain of components and their schemas, be documented by an _unspecified_ schema. This is not ideal, so we define one special case of unspecified schema, the [UTF-8 Schema](#the-utf-8-schema).
 
-#### The ASCII Schema
+#### The UTF-8 Schema
 
-When all the following are true of a [`Schema`], it describes the `ASCII` schema:
+When all the following are true of a [`Schema`], it describes the `UTF-8` schema:
 
-- The `name` is set to `ASCII`
+- The `name` is set to `UTF-8`
 - The `specification` is set to the ID of the empty [`EntitySnapshot`]
 - The `format` is set to [`BorshSchema::String`][`BorshSchema`]
 
+All `BorshSchema::String` types are required to be [UTF-8] strings. The `UTF-8` Schema has no
+specific meaning beyond it's own contents, and it is primarily meant for use in the specifications
+of other components.
+
+[UTF-8]: https://datatracker.ietf.org/doc/html/rfc3629
+
 #### Unspecified Schemas
 
-When any schema that is **not** the [ASCII Schema](#the-ascii-schema) has a `specification` set to the empty [`EntitySnapshot`] is is called an _unspecified schema_.
+When any schema that is **not** the [UTF-8 Schema](#the-utf-8-schema) has a `specification` set to the empty [`EntitySnapshot`] is is called an _unspecified schema_.
 
 Unspecified schemas are generally discouraged, because although the `format` will describe the data layout of a component with the schema, it does not give any indication how that data is meant to be interpreted by apps or humans. This makes unspecified schemas ambiguous, and one app may interpret an unspecified schema in a different way than another app.
 
@@ -173,7 +179,6 @@ Still, nothing prevents the creation of unspecified schemas, so they are allowed
 
 [`Schema`]: #schemas
 [`SchemaId`]: #SchemaId
-[ASCII]: https://en.wikipedia.org/wiki/ASCII
 
 ### Borsh Schemas
 
