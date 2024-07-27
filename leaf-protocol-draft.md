@@ -227,6 +227,9 @@ enum BorshSchema {
         subspace: KeyResolverKind,
         path: Vec<PathComponent>,
         snapshot: Option<EntitySnapshotId>
+    },
+    Snapshot {
+        id: EntitySnapshotId,
     }
 }
 
@@ -253,6 +256,10 @@ The `namespace` and `subspace` specify the `KeyResolverKind` used to lookup the 
 
 [`Link`]: #links
 [`BorshSchema`]: #borsh-schemas
+
+### Snapshots
+
+There is also `BorshSchema::Snapshot` type that is similar to a [`Link`] but without a path. It just contains the [`EntitySnapshotId`]. This may be useful for things like edit history components, where the older versions of the entity are not stored at any entity path anymore, but their snapshots are stored in a component on the new version of the entity.
 
 ### Key Resolvers
 
