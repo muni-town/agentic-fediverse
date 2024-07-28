@@ -23,7 +23,7 @@ An [`Entity`] represents any distinct "thing". This could be a chat message, a b
 
 Entities are able to store data by attaching [`Component`]s to them, and they may also be the target of [`Link`]s.
 
-Each [`Entity`] is stored in a Willow [`Namespace`][`NamespaceId`], under a specific [`Subspace`][`SubspaceId`] and [`Path`].  The [`PathComponent`]s must follow the [rules](#entity-path-components) below.
+Each [`Entity`] is stored in a Willow [`Namespace`][`NamespaceId`], under a specific [`Subspace`][`SubspaceId`] and [`Path`]. The [`PathComponent`]s must follow the [rules](#entity-path-components) below.
 
 > **Note:** In this spec we refer to [Willow path components][`PathComponent`] as [`PathComponent`]s, to distinguish it from [`Component`][`Component`]s for [`Entity`]s in this specification.
 
@@ -208,9 +208,6 @@ enum BorshSchema {
         schema: BorshSchema,
         len: u32,
     },
-    Tuple {
-        fields: Vec<BorshSchema>,
-    },
     Struct {
         fields: Vec<String, BorshSchema>,
     },
@@ -227,15 +224,34 @@ enum BorshSchema {
     Set {
         schema: Borshchema
     },
-    Link {
-        namespace: KeyResolverKind,
-        subspace: KeyResolverKind,
-        path: Vec<PathComponent>,
-        snapshot: Option<EntitySnapshotId>
-    },
-    Snapshot {
-        id: EntitySnapshotId,
-    }
+    Snapshot,
+    Link,
+}
+```
+
+The [`BorshSchema`] allows us to represent the [Borsh] data model so that we can deserialize component data with it. We make a couple modifications to the normal borsh data model:
+
+- We remove tuples. Structs are clearer and take up no more space for per-component storage.
+- We add [`Snapshot`] and [`Link`] types.
+
+### Snapshots
+
+A [`BorshSchema::Snapshot`] is serialized/deserialized as an [`EntitySnapshotId`].
+
+A snapshot is is similar in purpose to a [`Link`] but without a path. This may be useful for things like edit history components, where the older versions of the entity are not stored at any entity path anymore, but their snapshots are stored in a component on the new version of the entity.
+
+[`Snapshot`]: #snapshots
+
+### Links
+
+A [`BorshSchema::Link`] is serialized/deserialize using [Borsh] with the following structure:
+
+```rust
+struct Link {
+    namespace: KeyResolverKind,
+    subspace: KeyResolverKind,
+    path: Vec<PathComponent>,
+    snapshot: Option<EntitySnapshotId>
 }
 
 enum KeyResolverKind {
@@ -247,11 +263,7 @@ enum KeyResolverKind {
 }
 ```
 
-The [`BorshSchema`] allows us to represent the [Borsh] data model so that we can deserialize component data with it. Beyond the standard Borsh data model, we add one extension: the [`Link`] type.
-
-### Links
-
-A [`Link`] is a reference to an entity [`Entity`]. Links allow us to build expressive graphs with our entities.
+A [`Link`] is a reference to an [`Entity`]. Links allow us to build expressive graphs with our entities.
 
 The `path` in the [`Link`] specifies the path to the entity in the `namespace` and `subspace`.
 
@@ -262,17 +274,13 @@ The `namespace` and `subspace` specify the `KeyResolverKind` used to lookup the 
 [`Link`]: #links
 [`BorshSchema`]: #borsh-schemas
 
-### Snapshots
-
-There is also `BorshSchema::Snapshot` type that is similar to a [`Link`] but without a path. It just contains the [`EntitySnapshotId`]. This may be useful for things like edit history components, where the older versions of the entity are not stored at any entity path anymore, but their snapshots are stored in a component on the new version of the entity.
-
 ### Key Resolvers
 
 A [`KeyResolver`] is a specification that describes a way to resolve some data to a [`NamespaceId`] or a [`SubspaceId`]. Key resolvers allow [`Link`]s to have a level of indirection, possibly using DNS or other mechanisms such as DIDs to lookup a key, instead of hardcoding it.
 
 The [`PayloadDigest`] of a [`KeyResolver`] is called a <a id="KeyResolverId" href="#KeyResolverId">`KeyResolverId`</a>.
 
-Key resolvers contain a `specification`, similar to a [`Schema`], that documents how to implement the key-resolver. Each app must decide which key resolvers to implement. 
+Key resolvers contain a `specification`, similar to a [`Schema`], that documents how to implement the key-resolver. Each app must decide which key resolvers to implement.
 
 [`KeyResolver`]s are stored in a content addressed store, and their data is [Borsh] serialized data matching the following format:
 
