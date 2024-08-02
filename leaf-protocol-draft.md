@@ -224,6 +224,7 @@ enum BorshSchema {
     Set {
         schema: Borshchema
     },
+    Blob,
     Snapshot,
     Link,
 }
@@ -234,9 +235,17 @@ The [`BorshSchema`] allows us to represent the [Borsh] data model so that we can
 - We remove tuples. Structs are clearer and take up no more space for per-component storage.
 - We add [`Snapshot`] and [`Link`] types.
 
+### Blobs
+
+A `BorshSchema::Blob` is serialized/deserialized as a [`PayloadDigest`].
+
+A blob allows you to separate large binary data from the other data in a component. For example, an `Image` component might describe the `mime_type` and the `size` of an image and store the `data` of the image as a [`Blob`]. Doing this allows you to download the image metadata without having to download the entire image when you read the component.
+
+[`Blob`]: #blobs
+
 ### Snapshots
 
-A [`BorshSchema::Snapshot`] is serialized/deserialized as an [`EntitySnapshotId`].
+A `BorshSchema::Snapshot` is serialized/deserialized as an [`EntitySnapshotId`].
 
 A snapshot is is similar in purpose to a [`Link`] but without a path. This may be useful for things like edit history components, where the older versions of the entity are not stored at any entity path anymore, but their snapshots are stored in a component on the new version of the entity.
 
@@ -244,7 +253,7 @@ A snapshot is is similar in purpose to a [`Link`] but without a path. This may b
 
 ### Links
 
-A [`BorshSchema::Link`] is serialized/deserialize using [Borsh] with the following structure:
+A `BorshSchema::Link` is serialized/deserialize using [Borsh] with the following structure:
 
 ```rust
 struct Link {
