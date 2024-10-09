@@ -1,7 +1,6 @@
 # Agentic Fediverse
 
-The "Agentic Fediverse" is the idea of a new kind of [network federation](https://en.wikipedia.org/wiki/Federation_(information_technology)), a complementary iteration on the concept of federation currently established with [ActivityPub]. It's an experiment and something that we at the [Commune](https://github.com/commune-os) group are
-still trying to define more concretely.
+The "Agentic Fediverse" is the idea of a new kind of [network federation](https://en.wikipedia.org/wiki/Federation_(information_technology)), a complementary iteration on the concept of federation currently established with [ActivityPub]. It's an experiment and something that we in [Muni Town](https://github.com/muni-town) are still trying to define more concretely.
 
 > **Note:** This is a temporary place for collecting links about the agentic fediverse, until this can be hosted directly on [Weird.one](https://weird.one).
 
@@ -24,7 +23,7 @@ The word *agentic* occurs primarily in the social sciences, pertaining to an ind
 
 > In [social science](https://en.wikipedia.org/wiki/Agency_(sociology)), agency is the capacity of individuals to have the power and resources to fulfill their potential.
 
-To be _agentic_ is to be agency-driven and agent-centric. An agentic system optimizes for agency, for example by measuring _user agency_ as a metric of success.
+To be _agentic_ is to be agent-centric. An agentic system optimizes for agency in its users, for example by measuring _user agency_ as a metric of system performance.
 
 # Definitive Topics
 
