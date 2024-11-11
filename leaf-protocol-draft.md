@@ -5,6 +5,10 @@ The Leaf Protocol is a data format on top of the [Willow Protocol][willow]. Will
 - A schema system and serialization format.
 - A standard for creating an Entity-Component ["Web of Data"][wod].
 
+See [Introducing the Leaf Protocol](https://zicklag.katharos.group/blog/introducing-leaf-protocol/) for a high-level overview of the ideas and motivation.
+
+> **ℹ️ Note:** This specification is a work in progress and has not yet been updated with the latest ideas. See the [Leaf issues](https://github.com/muni-town/agentic-fediverse/issues?q=is%3Aissue+is%3Aopen+label%3Aleaf) for pending modifications.
+
 [willow]: https://willowprotocol.org/specs/index.html#specifications
 [wod]: https://zicklag.katharos.group/blog/a-web-of-data/
 
